@@ -14,7 +14,8 @@ import {
 
 import SignUpForm from './SignUpForm'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-import axios from 'axios'
+import axios from 'axios';
+import { baseURL } from './../../../configs';
 
 
 const styles = StyleSheet.create({
@@ -80,10 +81,16 @@ class SignUp extends Component {
     }
 
     _onSubmit = () => {
-        const { username, password, email } = this.signUpForm.getValue();
+        const { username, password, rePassword, email } = this.signUpForm.getValue();
         const { position } = this.state;
         if (!username || !password || !email) {
             this.signUpForm.showError('Vui lòng điền đủ thông tin!');
+        }
+        else if (!/^[a-zA-Z0-9_@.-]{1,255}$/.test(username)) {
+            this.signUpForm.showError('Tên đăng nhập không đúng định dạng');
+        }
+        else if (password !== rePassword) {
+            this.signUpForm.showError('Mật khẩu không đồng nhất!');
         } else {
             const data = {
                 username,
@@ -94,14 +101,14 @@ class SignUp extends Component {
             const config = {
                 'Content-Type': 'application/json',
             };
-            axios.post('http://192.168.1.68:3000/register', data, config)
+            axios.post(baseURL + '/register', data, config)
                 .then((response) => {
                     if (response.data === 'error') {
                         this.signUpForm.showError('Đăng ký không thành công!');
-                        
+
                     }
                     else {
-                        this.props.navigation.navigate('menuFeature');
+                        this.props.navigation.navigate('Login');
                     }
                 })
                 .catch((error) => {
@@ -116,7 +123,7 @@ class SignUp extends Component {
             <KeyboardAwareScrollView
                 contentContainerStyle={{
                     flexGrow: 1,
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-around'
                 }}
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}

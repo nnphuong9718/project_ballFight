@@ -1,22 +1,33 @@
-import {  createStackNavigator } from 'react-navigation-stack';
-import {createAppContainer} from 'react-navigation';
+
+import { createStackNavigator } from 'react-navigation-stack';
 import AuthenticateStack from './AuthenticateStack';
-import MenuFeaturesStack from './MenuFeaturesStack'
+import MenuFeaturesStack from './MenuFeaturesStack';
+import CreateTeamStack from './CreateTeamStack';
+import ListTeamStack from './ListTeamStack';
+import TeamInformationStack from './TeamInformationStack'
 
 
-const RootStack = createStackNavigator(
-    {
-        AuthenticateStack,
-        MenuFeaturesStack
-    },
-    {
-        initialRouteName: 'AuthenticateStack',
-        defaultNavigationOptions :{
-            header:null
-        }
-        
-    },
-);
+export const startApp = (signedIn = false, hasTeam = false) => {
+    return createStackNavigator(
+        {
+            AuthenticateStack,
+            MenuFeaturesStack,
+            CreateTeamStack,
+            ListTeamStack,
+            TeamInformationStack
+        },
+        {
 
-const AppContainer = createAppContainer(RootStack);
-export default AppContainer;
+            initialRouteName: !signedIn ? 'AuthenticateStack' : !hasTeam ? 'MenuFeaturesStack' : 'TeamInformationStack',
+            // initialRouteName: 'AuthenticateStack',
+            defaultNavigationOptions: {
+                header: null,
+            }
+
+        },
+    )
+}
+
+
+
+

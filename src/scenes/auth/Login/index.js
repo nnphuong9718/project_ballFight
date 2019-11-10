@@ -17,26 +17,27 @@ import Form from './Form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { Button } from './../../../components';
 import logo from './../../../assets/images/logo.png'
+import { baseURL } from './../../../configs';
 
 
 
 import axios from 'axios';
-import { ScrollView } from 'react-native-gesture-handler';
+// import { ScrollView } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Login extends Component {
     static navigationOptions = {
         header: null,
-      };
+    };
     constructor(props) {
         super(props);
         this.state = {
 
         }
     }
-    
 
-
-    onSubmit = () => {
+    onSubmit = async () => {
+        console.log(baseURL);
         const { username, password } = this.form.getValue();
         if (!password) {
             this.form.showError('Không được bỏ trống mật khẩu.');
@@ -51,29 +52,29 @@ class Login extends Component {
             const config = {
                 'Content-Type': 'application/json',
             };
-            axios.post('http://192.168.1.68:3000/loginService', data, config)
+            axios.post(baseURL + '/loginService', data, config)
                 .then((response) => {
-                    if (response.data) {
+                    if (response.data === "Error") {
+                        this.form.showError('Sai tên đăng nhập hoặc mật khẩu')
                         // props.onOpenNextScreen('');
-                        console.log(response)
-                        this.props.navigation.navigate('MenuFeatures')
                     }
                     else {
-                        this.form.showError('Sai tên đăng nhập hoặc mật khẩu')
+                        console.log(response.data.rows[0].id);
+                        this.props.navigation.navigate('MenuFeatures', {
+                            params: response.data.rows[0].id
+                        });
                     }
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         }
-
     }
     _goToSignUpScreen = () => {
         this.props.navigation.navigate('SignUp')
     }
     render() {
         return (
-
             <KeyboardAwareScrollView
                 contentContainerStyle={{
                     flexGrow: 1,
@@ -84,7 +85,7 @@ class Login extends Component {
                 showsVerticalScrollIndicator={false}
                 enableResetScrollToCoords={false}>
                 <View style={{ flex: 5, justifyContent: 'space-around' }}>
-                    <View style={{ flex: 4, justifyContent: 'space-around',  }}>
+                    <View style={{ flex: 4, justifyContent: 'space-around', }}>
                         <Image source={logo} style={styles.logo} />
                         <Text style={styles.slogan}>Đăng nhập để trải nghiệm!</Text>
                     </View>
@@ -108,6 +109,7 @@ class Login extends Component {
                     </View>
                 </View>
             </KeyboardAwareScrollView>
+
         )
     }
 }
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
         // height:'30%',
         height: '65%',
         alignSelf: 'center',
-        marginBottom:20
+        marginBottom: 20
     },
     containerLogo: {
         // flex: 1,

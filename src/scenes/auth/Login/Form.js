@@ -11,52 +11,52 @@ import {
     Vibration,
     View
 } from "react-native";
-import {Button} from './../../../components'
+import { Button } from './../../../components'
 
 interface Props {
     onSubmit?: () => void;
     isLoading?: boolean | undefined;
-  }
+}
 
 
 export default class Form extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state= { 
-            username : '',
-            password : '',
-            error : false,
-            errorMessage : '',
+        this.state = {
+            username: '',
+            password: '',
+            error: false,
+            errorMessage: '',
         }
     }
 
 
     onChangeUserName = (username) => {
         this.setState({
-            username : username
+            username: username
         })
     }
 
     onChangePassword = (password) => {
         this.setState({
-            password : password
+            password: password
         })
     }
 
     showError = (msg) => {
         this.setState({
             error: true,
-            errorMessage : msg,
+            errorMessage: msg,
         })
     }
 
     getValue = () => {
-        const {username, password} = this.state;
-        return {username, password};
+        const { username, password } = this.state;
+        return { username, password };
     }
 
     render() {
-        const {errorMessage,error} = this.state;
+        const { errorMessage, error } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.containerTextInput}>
@@ -69,29 +69,29 @@ export default class Form extends Component {
                     />
                 </View>
                 <View style={styles.containerTextInput}>
-                    <Image source={key} style={styles.iconStyle}/>
+                    <Image source={key} style={styles.iconStyle} />
                     <TextInput
                         style={styles.input}
                         placeholder="Mật khẩu"
                         // placeholderTextColor = "#ffffff"
-                        onChangeText={(text) =>this.onChangePassword(text)}
+                        onChangeText={(text) => this.onChangePassword(text)}
                         secureTextEntry
                     />
                 </View>
                 <View style={styles.errorMessage}>
-                {error ? <Text style= {{color:'red'}}>{errorMessage}</Text> : <Text></Text>}
+                    {error ? <Text style={{ color: 'red' }}>{errorMessage}</Text> : <Text></Text>}
                 </View>
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.button}
-                    onPress = {this.props.onSubmit}
+                    onPress={this.props.onSubmit}
                 >
-                    <Text style={{fontSize:15,color:'white'}}>Đăng nhập</Text>
+                    <Text style={{ fontSize: 15, color: 'white' }}>Đăng nhập</Text>
                 </TouchableOpacity>
                 <TouchableOpacity>
-                <Text style={{fontSize : 15,marginTop:5}}>Quên mật khẩu?</Text>
-                </TouchableOpacity>     
+                    <Text style={{ fontSize: 15, marginTop: 5 }}>Quên mật khẩu?</Text>
+                </TouchableOpacity>
             </View>
-            
+
         )
     }
 }
@@ -102,25 +102,24 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         borderRadius: 10,
         justifyContent: 'space-around',
-        
-        alignItems:'center',
+        alignItems: 'center',
     },
-    containerTextInput :{
+    containerTextInput: {
         flexDirection: 'row',
         alignItems: 'center',
         borderBottomColor: '#9F9999',
         borderBottomWidth: 1,
-        
+
         justifyContent: 'center',
     },
     input: {
-        width:'90%',
+        width: '90%',
         marginLeft: 10,
         fontSize: 15,
     },
-    iconStyle : {
-        width:25,
-        height:25
+    iconStyle: {
+        width: 25,
+        height: 25
     },
     button: {
         width: '100%',
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
         // marginTop:10,
     },
     errorMessage: {
-        marginTop : 10,
-        marginBottom : 10,
+        marginTop: 10,
+        marginBottom: 10,
     }
 })

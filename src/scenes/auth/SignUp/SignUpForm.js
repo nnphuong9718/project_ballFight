@@ -11,24 +11,7 @@ import {
 }
     from 'react-native';
 
-const styles = StyleSheet.create({
-    input: {
-        width: '90%',
-        // paddingBottom: 10,
-        borderBottomWidth: 0.75,
-        borderBottomColor: 'gray',
-        alignSelf: 'center',
-        fontSize: 15,
-    },
-    containerInput: {
-        // justifyContent:'space-around'
-        marginBottom: 20,
-    },
-    errorMessage: {
-        marginTop : 10,
-        marginBottom : 10,
-    }
-})
+import styles from './styles';
 
 export default class SignUpForm extends Component {
     constructor(props) {
@@ -36,22 +19,11 @@ export default class SignUpForm extends Component {
         this.state = {
             username: '',
             password: '',
+            rePassword: '',
             email: '',
             error: false,
             errorMessage: '',
         }
-    }
-
-    _onChangeUsername = (username) => {
-        this.setState({
-            username: username,
-        })
-    }
-
-    _onChangePassword = (password) => {
-        this.setState({
-            password: password
-        })
     }
 
     showError = (msg) => {
@@ -62,26 +34,39 @@ export default class SignUpForm extends Component {
     }
 
     getValue = () => {
-        const { username, password, email } = this.state;
+        const { username, password, rePassword, email, } = this.state;
         console.log(username);
-        return { username, password, email }
+        return { username, password, rePassword, email }
     }
     render() {
-        const {error} = this.state;
+        const { error, errorMessage } = this.state;
         return (
             <View style={styles.containerInput}>
                 <TextInput
                     style={styles.input}
                     placeholder="Tên đăng nhập"
                     placeholderTextColor="#C4BFC0"
-                    onChangeText={(text) => this._onChangeUsername(text)}
+                    onChangeText={(username) => this.setState({
+                        username: username,
+                    })}
                 />
                 <TextInput
                     placeholder="Mật khẩu"
                     style={styles.input}
                     placeholderTextColor="#C4BFC0"
                     secureTextEntry
-                    onChangeText={(text) => this._onChangePassword(text)}
+                    onChangeText={(password) => this.setState({
+                        password: password
+                    })}
+                />
+                <TextInput
+                    placeholder="Nhập lại mật khẩu"
+                    style={styles.input}
+                    placeholderTextColor="#C4BFC0"
+                    secureTextEntry
+                    onChangeText={(rePassword) => this.setState({
+                        rePassword: rePassword
+                    })}
                 />
                 <TextInput
                     placeholder="Email"
