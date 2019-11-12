@@ -20,6 +20,7 @@ class FlatListItem extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.teamName}>
+                    <Text>{item.id + "/ "}</Text>
                     <Text style={styles.textTeamName}>{item.code_name + " - " + item.name}</Text>
                 </View>
                 <View style={styles.containerRight}>
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-
+        backgroundColor: '#4CAF50',
         marginBottom: 10,
         marginLeft: 20,
         marginRight: 20,
@@ -51,7 +52,8 @@ const styles = StyleSheet.create({
 
     },
     teamName: {
-        justifyContent: 'center',
+        flexDirection: 'row',
+        alignItems: 'center',
         marginLeft: 20,
     },
     textTeamName: {

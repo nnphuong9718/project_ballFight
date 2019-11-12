@@ -7,7 +7,7 @@ import ListTeamStack from './ListTeamStack';
 import TeamInformationStack from './TeamInformationStack'
 
 
-export const startApp = (signedIn = false, hasTeam = false) => {
+export const startApp = (signedIn = false) => {
     return createStackNavigator(
         {
             AuthenticateStack,
@@ -18,8 +18,8 @@ export const startApp = (signedIn = false, hasTeam = false) => {
         },
         {
 
-            initialRouteName: !signedIn ? 'AuthenticateStack' : !hasTeam ? 'MenuFeaturesStack' : 'TeamInformationStack',
-            // initialRouteName: 'AuthenticateStack',
+            initialRouteName: !signedIn ? 'AuthenticateStack' : 'MenuFeaturesStack',
+            // initialRouteName: 'TeamInformationStack',
             defaultNavigationOptions: {
                 header: null,
             }

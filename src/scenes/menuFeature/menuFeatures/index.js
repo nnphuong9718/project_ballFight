@@ -53,7 +53,9 @@ class MenuFeature extends Component {
     this.state = {
       onClicked: false,
       // id_login: 0,
-      personalInfo: {}
+      personalInfo: {},
+      errorMessage: '',
+      error: false
     }
   }
 
@@ -96,11 +98,17 @@ class MenuFeature extends Component {
         console.log(error);
       });
   }
+  showError = (msg) => {
+    this.setState({
+      error: true,
+      errorMessage: msg,
+    })
+  }
 
   _setTeamID = async () => {
     const { personalInfo } = this.state;
     await AsyncStorage.setItem('team_id', personalInfo.team_id);
-    console.log(personalInfo).team_id
+    console.log(personalInfo.team_id);
   }
   _logout = async () => {
     await AsyncStorage.removeItem('id_login')
@@ -114,7 +122,19 @@ class MenuFeature extends Component {
   }
   _goToListTeam = () => {
     console.log('ok')
+
     this.props.navigation.navigate('ListView');
+  }
+  _goToMyTeam = () => {
+    const { personalInfo } = this.state;
+    console.log(personalInfo.team_id)
+    if (!personalInfo.team_id) {
+      this.showError('Bạn chưa tham gia vào team nào');
+    } else {
+      this.props.navigation.navigate('TeamInformation', {
+        params: personalInfo.team_id,
+      });
+    }
   }
   showUpdateInfo = () => {
     const { personalInfo } = this.state;
@@ -128,7 +148,7 @@ class MenuFeature extends Component {
 
   }
   render() {
-    const { onClicked, personalInfo } = this.state;
+    const { onClicked, personalInfo, error, errorMessage } = this.state;
     const { navigation } = this.props;
     console.log(personalInfo)
     return (
@@ -139,7 +159,18 @@ class MenuFeature extends Component {
             <Text>Cập nhật ngay</Text>
           </TouchableOpacity>
         </View> : <View></View>}
+        {error ? <View>
+          <Text>{errorMessage}</Text>
+        </View> : <View></View>}
         {/* <ImageBackground source={require('./../../assest/images/screen2.jpg')} style={styles.imageBackground}> */}
+        <View style={styles.containerButton}>
+          <TouchableOpacity
+            onPress={this._goToMyTeam}
+            style={styles.button} >
+            {/* <Icon2 name="plus" size={30} color="black" /> */}
+            <Text style={styles.text}>My Team</Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.containerButton}>
           <TouchableOpacity
             onPress={this.showUpdateInfo}
