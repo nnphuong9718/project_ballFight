@@ -63,7 +63,6 @@ class CreateTeam extends Component {
                         this.signUpForm.showError('Đăng ký không thành công!');
                     }
                     else {
-
                         const id_team = response.data.rows[0].id
                         console.log(id_team)
                         this.props.navigation.navigate('TeamInformation', {

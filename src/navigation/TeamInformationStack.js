@@ -1,17 +1,17 @@
-import { createStackNavigator } from 'react-navigation-stack';
-import TeamInformation from '../scenes/TeamInformation';
+// import { createStackNavigator } from 'react-navigation-stack';
+// import TeamInformation from '../scenes/TeamInformation';
 
-const TeamInformationStack = createStackNavigator(
-    {
-        TeamInformation,
-    },
-    {
-        initialRouteName: 'TeamInformation',
-        defaultNavigationOptions: {
-            title: "Ball Fight"
-        }
-    }
+// const TeamInformationStack = createStackNavigator(
+//     {
+//         TeamInformation,
+//     },
+//     {
+//         initialRouteName: 'TeamInformation',
+//         defaultNavigationOptions: {
+//             title: "Ball Fight"
+//         }
+//     }
 
-);
+// );
 
-export default TeamInformationStack
+// export default TeamInformationStack

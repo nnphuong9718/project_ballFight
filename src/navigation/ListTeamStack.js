@@ -1,17 +1,17 @@
-import { createStackNavigator } from 'react-navigation-stack';
-import ListView from '../scenes/listTeam'
+// import { createStackNavigator } from 'react-navigation-stack';
+// import ListView from '../scenes/listTeam'
 
-const ListTeamStack = createStackNavigator(
-    {
-        ListView
-    },
-    {
-        initialRouteName: 'ListView',
-        defaultNavigationOptions: {
-            title: "Ball Fight"
-        }
-    },
+// const ListTeamStack = createStackNavigator(
+//     {
+//         ListView
+//     },
+//     {
+//         initialRouteName: 'ListView',
+//         defaultNavigationOptions: {
+//             title: "Ball Fight"
+//         }
+//     },
 
-);
+// );
 
-export default ListTeamStack;
+// export default ListTeamStack;

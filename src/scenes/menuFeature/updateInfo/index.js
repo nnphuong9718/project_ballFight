@@ -56,7 +56,9 @@ export default class UpdateInfo extends Component {
                 }
                 else {
                     console.log(response)
-                    this.props.navigation.navigate('MenuFeatures')
+                    this.props.navigation.navigate('MenuFeatures', {
+                        reload: 1
+                    })
                 }
             })
             .catch((error) => {

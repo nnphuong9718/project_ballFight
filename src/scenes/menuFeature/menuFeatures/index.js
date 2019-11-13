@@ -9,7 +9,7 @@ import {
 }
   from 'react-native';
 import logout from './../../../assets/icons/logout.png'
-
+import main from '../../../assets/images/MAINMENU-01.png'
 import AsyncStorage from '@react-native-community/async-storage';
 
 import axios from 'axios';
@@ -63,6 +63,8 @@ class MenuFeature extends Component {
     const { navigation } = this.props;
     const params = JSON.stringify(navigation.getParam('params'))
     console.log(params)
+    const reload = JSON.stringify(navigation.getParam('reload'))
+    console.log(reload);
     await AsyncStorage.setItem('id_login', params);
   }
 
@@ -78,6 +80,7 @@ class MenuFeature extends Component {
   getId = async () => {
 
   }
+
 
   getPersonalInfo = (id_login) => {
     const data = {
@@ -121,9 +124,18 @@ class MenuFeature extends Component {
     })
   }
   _goToListTeam = () => {
+    const { personalInfo } = this.state;
     console.log('ok')
-
-    this.props.navigation.navigate('ListView');
+    if (personalInfo.first_name !== null && personalInfo.last_name != null) {
+      this.props.navigation.navigate('ListTeam', {
+        params: personalInfo.id
+      });
+    } else {
+      this.showError('Để tạo hoặc tham gia vào đội bóng, bạn cần cập nhật đầy đủ thông tin.')
+      this.setState({
+        onClicked: true,
+      })
+    }
   }
   _goToMyTeam = () => {
     const { personalInfo } = this.state;
@@ -141,6 +153,7 @@ class MenuFeature extends Component {
     if (personalInfo.first_name !== null && personalInfo.last_name != null) {
       this.props.navigation.navigate('CreateTeam');
     } else {
+      this.showError('Để tạo hoặc tham gia vào đội bóng, bạn cần cập nhật đầy đủ thông tin.')
       this.setState({
         onClicked: true,
       })
@@ -153,14 +166,15 @@ class MenuFeature extends Component {
     console.log(personalInfo)
     return (
       <View style={styles.container}>
-        {onClicked ? <View>
-          <Text>Để tạo hoặc tham gia vào đội bóng, bạn cần cập nhật đầy đủ thông tin</Text>
-          <TouchableOpacity onPress={this.goToUpdateInfo}>
-            <Text>Cập nhật ngay</Text>
-          </TouchableOpacity>
-        </View> : <View></View>}
+        <Image source={main} style={styles.image} />
+
         {error ? <View>
           <Text>{errorMessage}</Text>
+        </View> : <View></View>}
+        {onClicked ? <View>
+          <TouchableOpacity onPress={this.goToUpdateInfo}>
+            <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'green' }}>Cập nhật ngay</Text>
+          </TouchableOpacity>
         </View> : <View></View>}
         {/* <ImageBackground source={require('./../../assest/images/screen2.jpg')} style={styles.imageBackground}> */}
         <View style={styles.containerButton}>
@@ -206,7 +220,7 @@ const styles = StyleSheet.create({
   containerButton: {
     backgroundColor: '#4CAF50',
     width: '70%',
-    height: '25 %',
+    height: '15 %',
     borderRadius: 40,
   },
   button: {
@@ -219,6 +233,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#fff'
   },
+  image: {
+    resizeMode: 'contain',
+    width: '100%',
+    height: '30%'
+  }
 
 });
 
