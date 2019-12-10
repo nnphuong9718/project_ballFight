@@ -14,6 +14,10 @@ export default class Training extends Component {
         this.onDateChange = this.onDateChange.bind(this);
     }
 
+    componentDidMount() {
+
+    }
+
     onDateChange(date) {
         this.setState({
             selectedStartDate: date,
@@ -21,12 +25,19 @@ export default class Training extends Component {
         });
     }
 
+    _getTrainingDay = () => {
+        const { navigation } = this.props;
+        const params = navigation.getParam('params');
+        console.log('teamInfo: ', params);
+    }
+
     _setDate = () => {
         const { navigation } = this.props;
         const params = navigation.getParam('params');
         console.log('teamInfo: ', params);
         const { selectedStartDate } = this.state;
-        const date = selectedStartDate.toString();
+        const date = Date.parse(selectedStartDate.toString());
+        console.log(date);
         const data = {
             date_training: date,
             team_id: params.id,
@@ -38,6 +49,7 @@ export default class Training extends Component {
         // console.log(date)
         axios.post(baseURL + '/team/training', data, config)
             .then(response => {
+                this.props.navigation.navigate('TeamInformation');
                 console.log(response)
             })
             .catch(error => {
