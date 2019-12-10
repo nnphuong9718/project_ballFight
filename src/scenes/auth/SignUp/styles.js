@@ -8,6 +8,9 @@ const styles = StyleSheet.create({
         borderBottomColor: 'gray',
         alignSelf: 'center',
         fontSize: 15,
+        marginBottom: 20,
+        paddingLeft: 8,
+        paddingBottom: 15,
     },
     containerInput: {
         // justifyContent:'space-around'

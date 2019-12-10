@@ -11,14 +11,13 @@ class App extends Component {
     super(props);
     this.state = {
       isSignedIn: false,
+      // id_login: 0,
 
     }
   }
   async componentDidMount() {
-    const id_login = await AsyncStorage.getItem('id_login');
-
-    console.log(id_login);
-
+    const id_login = await AsyncStorage.getItem('id_login')
+    console.log(id_login)
     if (id_login != null) {
       this.setState({
         isSignedIn: true,
@@ -27,8 +26,8 @@ class App extends Component {
 
   }
   render() {
-    const { isSignedIn, hasTeam } = this.state;
-    console.log(hasTeam);
+    const { isSignedIn, hasTeam, id_login } = this.state;
+    console.log(id_login)
     const RootStack = startApp(isSignedIn);
     const AppContainer = createAppContainer(RootStack);
     return <AppContainer />

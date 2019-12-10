@@ -57,7 +57,7 @@ class CreateTeam extends Component {
             const config = {
                 'Content-Type': 'application/json',
             };
-            axios.post(baseURL + '/createTeam', data, config)
+            axios.post(baseURL + '/team/createTeam', data, config)
                 .then((response) => {
                     if (response.data === 'error') {
                         this.signUpForm.showError('Đăng ký không thành công!');

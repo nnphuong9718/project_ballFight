@@ -19,20 +19,6 @@ import { baseURL } from '../../../configs'
 
 
 class MenuFeature extends Component {
-  // static navigationOptions = {
-  //   title: 'Ball Fight!',
-  //   headerRight: () => (
-  //     <TouchableOpacity onPress={
-  //       () => { _this._logout }
-  //     }>
-  //       <Image
-  //         source={logout}
-  //         style={{ width: 25, height: 25, marginRight: 10 }}
-  //       />
-  //     </TouchableOpacity>
-
-  //   ),
-  // };
 
   static navigationOptions = ({ navigation }) => {
     return {
@@ -52,7 +38,7 @@ class MenuFeature extends Component {
     super(props);
     this.state = {
       onClicked: false,
-      // id_login: 0,
+      id_login: 0,
       personalInfo: {},
       errorMessage: '',
       error: false
@@ -60,20 +46,23 @@ class MenuFeature extends Component {
   }
 
   async componentWillMount() {
-    const { navigation } = this.props;
-    const params = JSON.stringify(navigation.getParam('params'))
-    console.log(params)
-    const reload = JSON.stringify(navigation.getParam('reload'))
-    console.log(reload);
-    await AsyncStorage.setItem('id_login', params);
+
   }
-
-
   async componentDidMount() {
     this.props.navigation.setParams({ logout: this._logout });
+    const { navigation } = this.props;
     const id = await AsyncStorage.getItem('id_login');
     console.log(id);
-    this.getPersonalInfo(id);
+    if (id === null) {
+      const params = JSON.stringify(navigation.getParam('params'))
+      console.log(params);
+      await AsyncStorage.setItem('id_login', params);
+      this.getPersonalInfo(params);
+    }
+    else {
+      this.getPersonalInfo(id);
+    }
+
     this._setTeamID();
   }
 
@@ -86,12 +75,12 @@ class MenuFeature extends Component {
     const data = {
       id_login
     }
+    console.log(id_login)
     const config = {
       'Content-Type': 'application/json',
     };
-    axios.post(baseURL + '/getPersonalInfo', data, config)
+    axios.post(baseURL + '/player/getPersonalInfo', data, config)
       .then((response) => {
-        console.log(response)
         this.setState({
           personalInfo: response.data.rows[0],
         })
@@ -162,7 +151,6 @@ class MenuFeature extends Component {
   }
   render() {
     const { onClicked, personalInfo, error, errorMessage } = this.state;
-    const { navigation } = this.props;
     console.log(personalInfo)
     return (
       <View style={styles.container}>

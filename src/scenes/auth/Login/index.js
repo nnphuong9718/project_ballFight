@@ -52,7 +52,7 @@ class Login extends Component {
             const config = {
                 'Content-Type': 'application/json',
             };
-            axios.post(baseURL + '/loginService', data, config)
+            axios.post(baseURL + '/account/loginService', data, config)
                 .then((response) => {
                     if (response.data === "Error") {
                         this.form.showError('Sai tên đăng nhập hoặc mật khẩu')

@@ -17,30 +17,62 @@ class FlatListItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            id_login: 0,
+            id_captain: 0,
         }
     }
     componentDidMount() {
+        // this._checkCaptain()
     }
     _addToTeam = () => {
+        this._checkCaptain();
+        const type = 1;
+        const { id_captain } = this.state;
+        console.log('captain: ', id_captain)
         const { item, id_login } = this.props;
-        console.log(id_login)
-        const id = item.id;
+        // console.log(id_login)
+        // const id = item.id;
+        if (id_captain !== 0) {
+            const data = {
+                id_receiver: id_captain,
+                id_sender: id_login,
+                type
+            }
+            const config = {
+                'Content-Type': 'application/json',
+            };
+            axios.post(baseURL + '/team/requestAddTeam', data, config)
+                .then(response => {
+                    if (response.status === 200) {
+                        console.log('xin gia nhap thanh cong')
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
+    }
+
+    _checkCaptain = () => {
+        const { item, id_login } = this.props;
+        const id_team = item.id;
+        console.log(id_team)
         const data = {
-            id,
-            id_login
+            id_team
         }
         const config = {
             'Content-Type': 'application/json',
         };
-        axios.post(baseURL + '/addToTeam', data, config)
+        axios.post(baseURL + '/player/checkCaptain', data, config)
             .then(response => {
-                if (response.status === 200) {
-                    this.props.goToNextScreen(id)
-                }
+                console.log(response)
+                this.setState({
+                    // isCaptain: true,
+                    id_captain: response.data.rows[0].id
+                })
             })
             .catch(error => {
-                console.log(error);
+                console.log(error)
             })
     }
 
@@ -123,7 +155,7 @@ export default class ListTeam extends Component {
         const config = {
             'Content-Type': 'application/json',
         }
-        axios.get(baseURL + '/getListTeam', config)
+        axios.get(baseURL + '/team/getListTeam', config)
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -135,11 +167,6 @@ export default class ListTeam extends Component {
             })
     }
 
-    _goToNextScreen = (id) => {
-        this.props.navigation.navigate('TeamInformation', {
-            params: id,
-        })
-    }
 
     renderItem = ({ item }) => {
         return (

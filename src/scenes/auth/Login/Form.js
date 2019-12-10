@@ -76,6 +76,7 @@ export default class Form extends Component {
                         // placeholderTextColor = "#ffffff"
                         onChangeText={(text) => this.onChangePassword(text)}
                         secureTextEntry
+                        textContentType="password"
                     />
                 </View>
                 <View style={styles.errorMessage}>
@@ -109,8 +110,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderBottomColor: '#9F9999',
         borderBottomWidth: 1,
-
+        marginBottom: 20,
         justifyContent: 'center',
+        paddingBottom: 10,
     },
     input: {
         width: '90%',
@@ -119,7 +121,8 @@ const styles = StyleSheet.create({
     },
     iconStyle: {
         width: 25,
-        height: 25
+        height: 25,
+        marginLeft: 10,
     },
     button: {
         width: '100%',

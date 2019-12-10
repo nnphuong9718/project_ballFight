@@ -15,12 +15,12 @@ import AsyncStorage from '@react-native-community/async-storage'
 import logout from '../../assets/icons/logout.png';
 import EmailForm from './EmailForm';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+import notification from '../../assets/icons/notification.png';
 
 class FlatListItem extends Component {
 
     render() {
-        const { item, team } = this.props;
-        console.log(team)
+        const { item } = this.props;
         let position = item.position === 1 ? 'GK' : item.position === 2 ? 'DF' : item.position === 3 ? 'MF' : 'ST';
         return (
             <View style={styles.container}>
@@ -31,7 +31,6 @@ class FlatListItem extends Component {
                 </View>
                 <View style={{ alignSelf: 'center', flexDirection: 'row' }}>
                     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{item.first_name + "" + item.last_name}</Text>
-                    {item.captain === 1 ? <Text>(C)</Text> : <Text></Text>}
                 </View>
                 <View>
                     <Text>Mail</Text>
@@ -86,9 +85,9 @@ class TeamInformation extends Component {
         return {
             headerTitle: 'Ball Fight',
             headerRight: () => (
-                <TouchableOpacity onPress={navigation.getParam('logout')}>
+                <TouchableOpacity onPress={navigation.getParam('notification')}>
                     <Image
-                        source={logout}
+                        source={notification}
                         style={{ width: 25, height: 25, marginRight: 10 }}
                     />
                 </TouchableOpacity>
@@ -101,26 +100,29 @@ class TeamInformation extends Component {
             list_player: [],
             teamInfo: {},
             isCaptain: false,
-            showForm: false
+            showForm: false,
+            id_captain: 0,
         }
     }
 
     componentWillMount() {
-        this.props.navigation.setParams({ logout: this._logout });
+        this.props.navigation.setParams({ notification: this._notification });
     }
     async componentDidMount() {
         const { navigation } = this.props;
         const params = JSON.stringify(navigation.getParam('params'))
-        console.log(params)
         await AsyncStorage.setItem('team_id', params)
         this.fetchData();
         this.getDataTeam();
         this.checkCaptain();
     }
-    _logout = async () => {
-        let keys = ['id_login', 'team_id'];
-        await AsyncStorage.multiRemove(keys);
-        this.props.navigation.navigate('Login');
+    _notification = async () => {
+        const id_login = await AsyncStorage.getItem('id_login')
+        const { teamInfo } = this.state;
+        this.props.navigation.navigate('Notification', {
+            params: teamInfo,
+            id_login: id_login,
+        });
     }
 
     // }
@@ -158,11 +160,13 @@ class TeamInformation extends Component {
                     console.log(error);
                 })
         }
-
-
-
         // console.log(list_player)
+    }
 
+    _trainTeam = () => {
+        this.props.navigation.navigate('Training', {
+            params: this.state.teamInfo
+        })
     }
 
     checkCaptain = async () => {
@@ -175,17 +179,19 @@ class TeamInformation extends Component {
         const config = {
             'Content-Type': 'application/json',
         };
-        axios.post(baseURL + '/checkCaptain', data, config)
+        axios.post(baseURL + '/player/checkCaptain', data, config)
             .then(response => {
                 console.log(response)
                 if (id_login == response.data.rows[0].id) {
                     this.setState({
-                        isCaptain: true
+                        isCaptain: true,
+                        id_captain: response.data.rows[0].id
                     })
                 }
                 else {
                     this.setState({
-                        isCaptain: false
+                        isCaptain: false,
+                        id_captain: response.data.rows[0].id
                     })
                 }
             })
@@ -203,7 +209,7 @@ class TeamInformation extends Component {
         const config = {
             'Content-Type': 'application/json',
         };
-        axios.post(baseURL + '/getDataTeam', data, config)
+        axios.post(baseURL + '/team/getDataTeam', data, config)
             .then(response => {
                 this.setState({
                     teamInfo: response.data.rows[0],
@@ -216,14 +222,13 @@ class TeamInformation extends Component {
 
     fetchData = async () => {
         const id_team = await AsyncStorage.getItem('team_id');
-        console.log(id_team)
         const data = {
             id_team
         }
         const config = {
             'Content-Type': 'application/json',
         };
-        axios.post(baseURL + '/getListPlayer', data, config)
+        axios.post(baseURL + '/team/getListPlayer', data, config)
             .then(response => {
                 this.setState({
                     list_player: response.data.rows,
@@ -246,8 +251,10 @@ class TeamInformation extends Component {
     }
 
     render() {
-        const { list_player, teamInfo, isCaptain, showForm } = this.state;
+        const { list_player, teamInfo, isCaptain, showForm, id_captain } = this.state;
         const data = list_player.sort(this.compare)
+        console.log("captain", id_captain)
+        console.log('true false', isCaptain)
         return (
             <KeyboardAwareScrollView
                 contentContainerStyle={{
@@ -266,9 +273,10 @@ class TeamInformation extends Component {
                     data={data}
                     keyExtractor={item => (item.id).toString()}
                     renderItem={({ item }) =>
-                        <FlatListItem item={item} />}
-                >
-                </FlatList>
+                        <FlatListItem
+                            item={item}
+                            id_captain={id_captain} />}
+                ></FlatList>
 
                 <View style={{ flex: 1, justifyContent: 'space-around' }}>
                     <View>
@@ -281,8 +289,8 @@ class TeamInformation extends Component {
                             <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', marginBottom: 20, }}>
                                 <TouchableOpacity
                                     style={styles.button}
-                                    onPress={this._sendMail}>
-                                    <Text>Thông báo</Text>
+                                    onPress={this._trainTeam}>
+                                    <Text>Đặt lịch tập luyện</Text>
                                 </TouchableOpacity>
                             </View> : <View></View>
                         }

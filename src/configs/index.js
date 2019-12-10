@@ -1,3 +1,3 @@
-const baseURL = 'http://10.45.212.108:3000'
+const baseURL = 'http://192.168.1.9:3000'
 
 export { baseURL };
