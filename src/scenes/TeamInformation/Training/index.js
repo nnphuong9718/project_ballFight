@@ -3,77 +3,86 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import CalendarPicker from 'react-native-calendar-picker';
 import axios from 'axios';
 import { baseURL } from '../../../configs';
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars'
+import now from 'moment'
+
 
 export default class Training extends Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedStartDate: null,
-            pickedDate: false
+            pickedDate: false,
+            day: 0,
+            month: 0,
+            year: 0,
+            training_date: []
         };
-        this.onDateChange = this.onDateChange.bind(this);
     }
 
     componentDidMount() {
-
+        this._getTrainingDay();
     }
 
-    onDateChange(date) {
-        this.setState({
-            selectedStartDate: date,
-            pickedDate: true
-        });
-    }
+
+
 
     _getTrainingDay = () => {
-        const { navigation } = this.props;
-        const params = navigation.getParam('params');
-        console.log('teamInfo: ', params);
-    }
 
-    _setDate = () => {
         const { navigation } = this.props;
         const params = navigation.getParam('params');
         console.log('teamInfo: ', params);
-        const { selectedStartDate } = this.state;
-        const date = Date.parse(selectedStartDate.toString());
-        console.log(date);
         const data = {
-            date_training: date,
             team_id: params.id,
-            type: 2,
         }
         const config = {
             'Content-Type': 'application/json',
         }
         // console.log(date)
-        axios.post(baseURL + '/team/training', data, config)
+        axios.post(baseURL + '/team/getTrainingDate', data, config)
             .then(response => {
-                this.props.navigation.navigate('TeamInformation');
-                console.log(response)
+                console.log('date training >>>>', response)
+                // const date = new Date(parseInt(response.data.rows[12].date_training))
+                // console.log(date)
+                this.setState({
+
+                    training_date: response.data.rows,
+                })
             })
             .catch(error => {
                 console.log(error);
+                // this.props.navigation.navigate('TeamInformation');
             })
 
+
     }
+
+    parseDateTraining = (date) => {
+        console.log(date);
+        const time = new Date(parseInt(date.date_training))
+        console.log(time);
+        const standardDate = time.getFullYear() + '-' + (parseInt(time.getMonth()) + 1) + '-' + time.getDate();
+        return standardDate;
+    }
+
+
     render() {
-        const { selectedStartDate } = this.state;
+        const { day, month, year, training_date } = this.state;
+        console.log(training_date)
+
+        const arrayDate = training_date.map(this.parseDateTraining)
+        let markedDates = arrayDate.reduce((c, v) => Object.assign(c, { [v]: { selected: true, marked: true } }), {});
+        console.log(markedDates)
+
+
         // const startDate = selectedStartDate ? selectedStartDate.toString() : '';
         return (
             <View style={styles.container}>
-                <CalendarPicker
-                    onDateChange={this.onDateChange}
-                    selectedDayColor='green'
+
+                <Calendar
+                    markedDates={markedDates}
                 />
 
-                <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', marginBottom: 20, }}>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={this._setDate}>
-                        <Text>Đặt lịch tập luyện</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
         );
     }

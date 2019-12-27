@@ -56,6 +56,7 @@ class MenuFeature extends Component {
     if (id === null) {
       const params = JSON.stringify(navigation.getParam('params'))
       console.log(params);
+      console.log(params)
       await AsyncStorage.setItem('id_login', params);
       this.getPersonalInfo(params);
     }
@@ -105,6 +106,13 @@ class MenuFeature extends Component {
   _logout = async () => {
     await AsyncStorage.removeItem('id_login')
     this.props.navigation.navigate('Login');
+    this.setState({
+      onClicked: false,
+      id_login: 0,
+      personalInfo: {},
+      errorMessage: '',
+      error: false
+    })
   }
   goToUpdateInfo = () => {
     this.props.navigation.navigate('UpdateInfo');
@@ -112,7 +120,9 @@ class MenuFeature extends Component {
       onClicked: false
     })
   }
-  _goToListTeam = () => {
+  _goToListTeam = async () => {
+    const id = await AsyncStorage.getItem('id_login');
+    this.getPersonalInfo(id)
     const { personalInfo } = this.state;
     console.log('ok')
     if (personalInfo.first_name !== null && personalInfo.last_name != null) {
@@ -126,7 +136,9 @@ class MenuFeature extends Component {
       })
     }
   }
-  _goToMyTeam = () => {
+  _goToMyTeam = async () => {
+    const id = await AsyncStorage.getItem('id_login');
+    this.getPersonalInfo(id)
     const { personalInfo } = this.state;
     console.log(personalInfo.team_id)
     if (!personalInfo.team_id) {

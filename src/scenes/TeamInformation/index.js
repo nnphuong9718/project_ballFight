@@ -7,15 +7,18 @@ import {
     TouchableOpacity,
     Image,
     ImageBackground,
+    Alert
 }
     from 'react-native';
 import axios from 'axios';
+
 import { baseURL } from '../../configs'
 import AsyncStorage from '@react-native-community/async-storage'
 import logout from '../../assets/icons/logout.png';
 import EmailForm from './EmailForm';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import notification from '../../assets/icons/notification.png';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 class FlatListItem extends Component {
 
@@ -74,6 +77,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 20,
     },
 })
 
@@ -102,12 +106,46 @@ class TeamInformation extends Component {
             isCaptain: false,
             showForm: false,
             id_captain: 0,
+            setDate: false,
+            setTime: false
         }
     }
 
     componentWillMount() {
         this.props.navigation.setParams({ notification: this._notification });
+
     }
+    getTime = (event, date) => {
+
+        this.setState({
+            setTime: true,
+        })
+        // if (date !== undefined) {
+
+        //     this.setState({
+        //         setItem: false
+        //     })
+        // }
+    };
+    findCoordinates = (event, date) => {
+
+        const { teamInfo } = this.state;
+        console.log(teamInfo)
+
+        console.log(date);
+        if (date !== undefined) {
+            console.log('ok')
+            this.setState({
+                setTime: false
+            })
+            this.props.navigation.navigate('FindOpponent', {
+                id_team: teamInfo.id,
+                time_play: date,
+            })
+
+        }
+    }
+
     async componentDidMount() {
         const { navigation } = this.props;
         const params = JSON.stringify(navigation.getParam('params'))
@@ -219,6 +257,45 @@ class TeamInformation extends Component {
                 console.log(error);
             })
     }
+    _setDate = (event, date) => {
+        const { list_player } = this.state;
+        console.log(list_player)
+        const arrayID = list_player.map(this.getIDTeam)
+        console.log(arrayID)
+        this.setState({
+            setDate: true,
+            mode: 'date',
+        })
+        const { teamInfo } = this.state;
+        console.log(date);
+        const date_training = (new Date(date)).getTime();
+        console.log(date_training)
+        if (date !== undefined) {
+            const data = {
+                arrayID: arrayID,
+                date_training: date_training,
+                team_id: teamInfo.id,
+                type: 2,
+            }
+            const config = {
+                'Content-Type': 'application/json',
+            }
+            // console.log(date)
+            axios.post(baseURL + '/team/training', data, config)
+                .then(response => {
+                    console.log(response)
+                    Alert.alert('Đặt lịch tập luyện thành công!')
+                })
+                .catch(error => {
+                    console.log(error);
+                    // this.props.navigation.navigate('TeamInformation');
+                })
+        }
+
+    }
+    getIDTeam = (list_player) => {
+        return list_player.id;
+    }
 
     fetchData = async () => {
         const id_team = await AsyncStorage.getItem('team_id');
@@ -251,10 +328,9 @@ class TeamInformation extends Component {
     }
 
     render() {
-        const { list_player, teamInfo, isCaptain, showForm, id_captain } = this.state;
+        const { list_player, teamInfo, isCaptain, showForm, id_captain, setDate, setTime } = this.state;
+        console.log(setTime)
         const data = list_player.sort(this.compare)
-        console.log("captain", id_captain)
-        console.log('true false', isCaptain)
         return (
             <KeyboardAwareScrollView
                 contentContainerStyle={{
@@ -279,22 +355,52 @@ class TeamInformation extends Component {
                 ></FlatList>
 
                 <View style={{ flex: 1, justifyContent: 'space-around' }}>
-                    <View>
-                        {showForm ? <EmailForm
-                            ref={ref => (this.form = ref)} />
-                            : <View></View>}
+
+
+                    <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', marginBottom: 20, }}>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={this._trainTeam}>
+                            <Text>Lịch tập luyện</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View>
-                        {isCaptain ?
-                            <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', marginBottom: 20, }}>
+                    {
+                        isCaptain ?
+                            <View>
                                 <TouchableOpacity
                                     style={styles.button}
-                                    onPress={this._trainTeam}>
+                                    onPress={this._setDate}>
                                     <Text>Đặt lịch tập luyện</Text>
                                 </TouchableOpacity>
                             </View> : <View></View>
-                        }
-                    </View>
+                    }
+                    {
+                        setDate ? <View>
+                            <DateTimePicker
+                                mode='date'
+                                value={new Date()}
+                                onChange={this._setDate} />
+                        </View> : <View></View>
+                    }
+                    {
+                        setTime ? <View>
+                            <DateTimePicker
+                                mode='time'
+
+                                value={new Date()}
+                                onChange={this.findCoordinates} />
+                        </View> : <View></View>
+                    }
+                    {
+                        isCaptain ?
+                            <View>
+                                <TouchableOpacity
+                                    style={styles.button}
+                                    onPress={this.getTime}>
+                                    <Text>Tìm đối thủ hôm nay</Text>
+                                </TouchableOpacity>
+                            </View> : <View></View>
+                    }
                 </View>
             </KeyboardAwareScrollView>
         )

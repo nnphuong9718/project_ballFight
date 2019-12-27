@@ -47,7 +47,7 @@ export default class UpdateInfo extends Component {
         const config = {
             'Content-Type': 'application/json',
         };
-        axios.post(baseURL + '/updateInfo', data, config)
+        axios.post(baseURL + '/account/updateInfo', data, config)
             .then((response) => {
                 if (response.data === "Error") {
                     this.form.showError('Cập nhật thất bại')

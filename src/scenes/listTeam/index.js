@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Image,
     ImageBackground,
+    Alert,
 } from 'react-native'
 import axios from 'axios';
 import { baseURL } from '../../configs';
@@ -45,6 +46,7 @@ class FlatListItem extends Component {
                 .then(response => {
                     if (response.status === 200) {
                         console.log('xin gia nhap thanh cong')
+                        Alert.alert('Xin gia nhập thành công!')
                     }
                 })
                 .catch(error => {

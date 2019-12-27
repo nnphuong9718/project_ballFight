@@ -6,6 +6,7 @@ import Notification from '../scenes/TeamInformation/Notification';
 import ListTeam from '../scenes/listTeam'
 import CreateTeam from '../scenes/createTeam'
 import Training from '../scenes/TeamInformation/Training'
+import FindOpponent from '../scenes/TeamInformation/FindOpponent'
 
 
 const MenuFeaturesFeatures = createStackNavigator(
@@ -16,7 +17,8 @@ const MenuFeaturesFeatures = createStackNavigator(
         Notification,
         ListTeam,
         CreateTeam,
-        Training
+        Training,
+        FindOpponent
     },
     {
         initialRouteName: 'MenuFeatures',

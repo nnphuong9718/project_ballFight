@@ -101,7 +101,7 @@ class SignUp extends Component {
             const config = {
                 'Content-Type': 'application/json',
             };
-            axios.post(baseURL + '/register', data, config)
+            axios.post(baseURL + '/account/register', data, config)
                 .then((response) => {
                     if (response.data === 'error') {
                         this.signUpForm.showError('Đăng ký không thành công!');
