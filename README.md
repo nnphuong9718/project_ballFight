@@ -181,7 +181,9 @@ Chúng tôi khuyên bạn nên cài đặt JDK bằng Homebrew . Chạy các l�
 >brew cask install adoptopenjdk8
 ## Sử dụng máy ảo của Android studio
 
-Vào android studio, chọn SDK manager, và khởi động một máy ảo lên.
+Cài đặt Android studio và máy ảo tương tự như trên windows.
+
+Vào Android studio, chọn SDK manager, và khởi động một máy ảo lên.
 
 Các công cụ React Native yêu cầu một số biến môi trường được thiết lập để xây dựng các ứng dụng với mã gốc.
 
