@@ -11,7 +11,16 @@ const styles = StyleSheet.create({
     },
     containerInput: {
         // justifyContent:'space-around'
-        marginBottom: 20,
+        backgroundColor: '#FFEB84',
+        width: '90%',
+        height: '30%',
+        borderRadius: 10,
+        alignSelf: 'center',
+        borderColor: 'gray',
+        borderWidth: 0,
+        justifyContent: 'center',
+        marginVertical: 30,
+        flex: 3,
     },
     errorMessage: {
         marginTop: 10,
@@ -21,7 +30,7 @@ const styles = StyleSheet.create({
     button: {
         width: '90%',
         alignSelf: 'center',
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#0FA00F',
         height: 50,
         borderRadius: 30,
         justifyContent: 'center',

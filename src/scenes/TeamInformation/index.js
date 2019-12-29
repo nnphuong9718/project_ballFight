@@ -275,7 +275,7 @@ class TeamInformation extends Component {
     const arrayID = list_player.map(this.getIDTeam);
     console.log(arrayID);
     this.setState({
-      setDate: true,
+    //   setDate: true,
       mode: "date"
     });
     const { teamInfo } = this.state;

@@ -15,6 +15,7 @@ import importIcon from '../../assets/icons/import.png'
 import axios from 'axios'
 import { baseURL } from '../../configs'
 import AsyncStorage from '@react-native-community/async-storage';
+import backGround from '../../assets/images/createTeam.png'
 
 
 class CreateTeam extends Component {
@@ -80,9 +81,12 @@ class CreateTeam extends Component {
         console.disableYellowBox = true;
         const { error, errMessage } = this.state;
         return (
-            <View style={{ flex: 1, justifyContent: 'space-around' }}>
+            <View style={{ flex: 1, paddingBottom: 30, paddingTop: 20 }}>
                 <View style={styles.title}>
                     <Text style={styles.textTitle}>Tạo ngay một đột bóng cho mình!</Text>
+                </View>
+                <View style = {{flex: 4, alignItems:'center' }}>
+                    <Image style = {{resizeMode :'contain',height: '95%', width: '95%'}} source = {backGround}/>
                 </View>
                 <View style={styles.container}>
                     <View style={styles.containerInput}>
@@ -109,8 +113,8 @@ class CreateTeam extends Component {
                     </View>
 
                 </View>
-                <View>
-                    {error ? <Text>{errMessage}</Text> : <Text></Text>}
+                <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center',}}>
+                    {error ? <Text style = {{ color: 'red'}}>{errMessage}</Text> : <Text></Text>}
                 </View>
                 <View style={styles.containerButton}>
                     <TouchableOpacity
@@ -129,20 +133,22 @@ const styles = StyleSheet.create({
     container: {
         // backgroundColor: 'rgba(52, 52, 52, 0.8)',
         backgroundColor: '#FFEB84',
-        paddingTop: 20,
-        paddingBottom: 20,
         width: '90%',
+        height: '30%',
         borderRadius: 10,
         alignSelf: 'center',
         borderColor: 'gray',
-        borderWidth: 0
+        borderWidth: 0,
+        justifyContent: 'center',
+        flex: 2,
     },
     title: {
+        flex: 1,
         alignItems: 'center',
     },
     textTitle: {
         fontSize: 25,
-        color: '#333',
+        color: '#0FA00F',
         fontWeight: 'bold',
         marginHorizontal: 20
     },

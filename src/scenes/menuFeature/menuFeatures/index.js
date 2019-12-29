@@ -10,6 +10,7 @@ import {
 import logout from "./../../../assets/icons/logout.png";
 import main from "../../../assets/images/MAINMENU-01.png";
 import main2 from "../../../assets/images/mainmenu2.png";
+import main4 from "../../../assets/images/mainmenu4.png";
 import icon_myteam from "../../../assets/images/icon_myteam.png";
 import icon_createTeam from "../../../assets/images/icon_createTeam.png";
 import icon_join from "../../../assets/images/icon_join.png";
@@ -162,8 +163,9 @@ class MenuFeature extends Component {
     console.log(personalInfo);
     return (
       <View style={styles.container}>
-        <Text style = {styles.mainMenu} >MAIN MENU</Text>
-        <Image source={main2} style={styles.image} />
+        <Text style = {styles.mainMenu} >HOME</Text>
+        <Text style = {styles.subSlogan} >Tận hưởng đam mê</Text>
+        <Image source={main4} style={styles.image} />
 
         {error ? (
           <View>
@@ -237,7 +239,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     flex: 1,
     width: 0,
-    height: "60%",
+    height: "55%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
@@ -247,8 +249,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: "3%",
     marginHorizontal: 8,
-    shadowColor: "rgba(0, 0, 0, 0.1)",
+    shadowColor: "black",
     shadowOpacity: 0.8,
+    shadowColor: '#0FA00F',
     elevation: 6
   },
   text: {
@@ -261,7 +264,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     width: "100%",
     height: "40%",
-    marginTop: "5%"
+    // marginTop: "5%"
   },
   subIcon: {
     width: 60,
@@ -279,6 +282,17 @@ const styles = StyleSheet.create({
     // color: "black",
     alignSelf: 'flex-start',
     marginTop: '10%',
+    color: '#135413',
+    zIndex: 3,
+    marginLeft: 30,
+
+  },
+  subSlogan: {
+    fontSize: 15,
+    // fontWeight: "bold",
+    // color: "black",
+    alignSelf: 'flex-start',
+    // marginTop: '10%',
     color: '#135413',
     zIndex: 3,
     marginLeft: 30,

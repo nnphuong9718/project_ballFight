@@ -90,12 +90,12 @@ class FlatFlistItem extends Component {
                                 <TouchableOpacity style={styles.button}
                                     onPress={this._addToTeam}
                                 >
-                                    <Text>Đồng ý</Text>
+                                    <Text style ={styles.textButton}>Đồng ý</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.containerButton}>
                                 <TouchableOpacity style={[styles.button, { backgroundColor: 'red' }]}>
-                                    <Text>Từ chối</Text>
+                                    <Text style ={styles.textButton}>Từ chối</Text>
                                 </TouchableOpacity>
                             </View>
                         </View >
@@ -127,12 +127,12 @@ class FlatFlistItem extends Component {
                                 <TouchableOpacity style={styles.button}
                                 // onPress={this._addToTeam}
                                 >
-                                    <Text>Đồng ý</Text>
+                                    <Text style ={styles.textButton}>Đồng ý</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.containerButton}>
                                 <TouchableOpacity style={[styles.button, { backgroundColor: 'red' }]}>
-                                    <Text>Từ chối</Text>
+                                    <Text style ={styles.textButton}>Từ chối</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -157,35 +157,35 @@ class FlatFlistItem extends Component {
             < View style={styles.container} >
                 {item.type_request === 1 ?
                     <View>
-                        <View style={{ flexDirection: 'row', flex: 5, alignItems: 'center', justifyContent: 'center' }}>
-                            <Text>{firstNameSender + lastNameSender}</Text>
-                            <Text> xin gia nhập team</Text>
+                        <View style={{ flexDirection: 'row', flex: 5, justifyContent: 'center' }}>
+                            <Text style = {styles.text}>{firstNameSender + lastNameSender}</Text>
+                            <Text style = {styles.text}> xin gia nhập team</Text>
                         </View>
                         <View style={styles.leftPanel}>
                             <View style={styles.containerButton}>
                                 <TouchableOpacity style={styles.button}
                                     onPress={this._addToTeam}
                                 >
-                                    <Text>Đồng ý</Text>
+                                    <Text style ={styles.textButton}>Đồng ý</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.containerButton}>
                                 <TouchableOpacity style={[styles.button, { backgroundColor: 'red' }]} onPress={this._cancel}>
-                                    <Text>Từ chối</Text>
+                                    <Text style ={styles.textButton}>Từ chối</Text>
                                 </TouchableOpacity>
                             </View>
                         </View >
                     </View> : item.type_request === 2 ? <View>
                         <View style={{ flexDirection: 'row', flex: 5, }}>
-                            <Text>Bạn có lịch tập vào: </Text>
-                            <Text> {displayDate}</Text>
+                            <Text style = {styles.text}>Bạn có lịch tập vào: </Text>
+                            <Text style = {styles.text}> {displayDate}</Text>
                         </View>
 
                     </View> :
                         item.type_request === 3 ? <View>
                             <View style={{ flexDirection: 'row', flex: 5, }}>
-                                <Text>Team số {item.team_id}</Text>
-                                <Text> muốn thi đấu với team bạn</Text>
+                                <Text style = {styles.text}>Team số {item.team_id}</Text>
+                                <Text style = {styles.text}> muốn thi đấu với team bạn</Text>
                             </View>
                             <View style = {{alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}}>
                                 <Text>Message: {item.message}</Text>
@@ -195,12 +195,12 @@ class FlatFlistItem extends Component {
                                     <TouchableOpacity style={styles.button}
                                     // onPress={this._addToTeam}
                                     >
-                                        <Text>Đồng ý</Text>
+                                        <Text style ={styles.textButton}>Đồng ý</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.containerButton}>
                                     <TouchableOpacity style={[styles.button, { backgroundColor: 'red' }]}>
-                                        <Text>Từ chối</Text>
+                                        <Text style ={styles.textButton}>Từ chối</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View >
@@ -221,9 +221,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 15,
         marginRight: 15,
-        height: 50,
+        height: 85,
         borderBottomWidth: 1,
         borderBottomColor: '#EAEAEE',
+        paddingTop: 10
         // marginVertical: 30
     },
     leftPanel: {
@@ -234,18 +235,26 @@ const styles = StyleSheet.create({
     },
     containerButton: {
         alignItems: 'center',
-        marginVertical: 30,
+        // marginVertical: 30,
         width: '50%'
         // flex: 2,
     },
     button: {
-        width: '50%',
-        height: 25,
+        width: '70%',
+        height: 30,
         backgroundColor: '#0FA00F',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10,
+        borderRadius: 40,
+        marginBottom: 30
     },
+    text : {
+        fontSize: 20,
+        color: '#333'
+    },
+    textButton: {
+        color: '#fff',
+    }
 })
 
 export default class Notification extends Component {
