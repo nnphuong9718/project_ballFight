@@ -225,13 +225,14 @@ Bạn cũng sẽ cần cài đặt Công cụ dòng lệnh Xcode. Mở Xcode, sa
 
 # B. Chạy project
 
-Cài nodemodules bằng lệnh: `npm i`
 
 Chạy npx react-native run-ios trong thư mục dự án `project_ballFight` của bạn.
 
 >cd project_ballFight
 
->npx react-native run-ios
+Cài nodemodules bằng lệnh: `npm i`
+
+>npx react-native run-android
 
 Nếu chạy thành công thì sẽ ra kết quả dưới đây
 
