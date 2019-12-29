@@ -230,7 +230,13 @@ Chạy npx react-native run-ios trong thư mục dự án `project_ballFight` c�
 
 >cd project_ballFight
 
-Cài nodemodules bằng lệnh: `npm i`
+Cài nodemodules bằng lệnh: `npm i` nếu dùng `npm`
+
+Hoặc có thể dùng `yarn`, sẽ nhanh hơn nhiều đấy
+
+- Để cài yarn, chạy lệnh: brew install yarn
+
+- Sau khi cài xong node nodemodule ta tiến hành chạy app.
 
 >npx react-native run-android
 
