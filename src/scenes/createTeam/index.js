@@ -82,14 +82,14 @@ class CreateTeam extends Component {
         return (
             <View style={{ flex: 1, justifyContent: 'space-around' }}>
                 <View style={styles.title}>
-                    <Text style={styles.textTitle}>Tạo đội bóng mới</Text>
+                    <Text style={styles.textTitle}>Tạo ngay một đột bóng cho mình!</Text>
                 </View>
                 <View style={styles.container}>
                     <View style={styles.containerInput}>
                         {/* <Image source={require('./../../assest/icons/ball.png')} /> */}
                         <TextInput
                             style={styles.input}
-                            placeholder="Nhập tên viết tắt đội"
+                            placeholder="Nhập tên viết tắt đội gồm 3 chữ cái"
                             // placeholderTextColor="white"
                             onChangeText={(text) => this.setState({
                                 codeTeam: text,
@@ -117,7 +117,7 @@ class CreateTeam extends Component {
                         onPress={this._onSubmit}
                         style={styles.button}
                     >
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }}>Đăng ký</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#fff' }}>Đăng ký</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -128,20 +128,23 @@ class CreateTeam extends Component {
 const styles = StyleSheet.create({
     container: {
         // backgroundColor: 'rgba(52, 52, 52, 0.8)',
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#FFEB84',
         paddingTop: 20,
         paddingBottom: 20,
         width: '90%',
         borderRadius: 10,
         alignSelf: 'center',
+        borderColor: 'gray',
+        borderWidth: 0
     },
     title: {
         alignItems: 'center',
     },
     textTitle: {
-        fontSize: 40,
-        color: 'white',
+        fontSize: 25,
+        color: '#333',
         fontWeight: 'bold',
+        marginHorizontal: 20
     },
     imageBackground: {
         flex: 1,
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
     },
     input: {
         fontSize: 15,
-        color: 'white',
+        color: '#0FA00F',
         marginLeft: 10,
     },
     containerButton: {
@@ -184,7 +187,7 @@ const styles = StyleSheet.create({
     button: {
         width: '90%',
         alignSelf: 'center',
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#0FA00F',
         height: 50,
         borderRadius: 30,
         justifyContent: 'center',

@@ -5,16 +5,17 @@ const styles = StyleSheet.create({
         width: '90%',
         // paddingBottom: 10,
         borderBottomWidth: 0.75,
-        borderBottomColor: 'gray',
+        borderBottomColor: '#BABAC9',
         alignSelf: 'center',
         fontSize: 15,
-        marginBottom: 20,
+        marginBottom: 5,
         paddingLeft: 8,
-        paddingBottom: 15,
+        // paddingBottom: 5,
     },
     containerInput: {
         // justifyContent:'space-around'
-        marginBottom: 20,
+        marginTop: 10,
+        marginBottom: 5,
     },
     errorMessage: {
         marginTop: 10,

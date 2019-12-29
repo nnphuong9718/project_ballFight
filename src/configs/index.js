@@ -1,3 +1,3 @@
-const baseURL = 'http://172.20.10.2:3000'
+const baseURL = 'https://project-bf.herokuapp.com'
 
 export { baseURL };

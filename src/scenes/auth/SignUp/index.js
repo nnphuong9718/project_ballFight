@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 8,
         justifyContent: 'center',
-        backgroundColor: '#0FDB7B'
+        backgroundColor: '#FFE351'
     },
     inputData: {
         // backgroundColor: 'rgba(52, 52, 52, 0.8)',
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     },
 
     containerPicker: {
-
+        marginBottom: '20%',
         marginTop: 10,
         width: '90%',
         alignSelf: 'center',
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     button: {
         width: '90%',
         alignSelf: 'center',
-        backgroundColor: '#0FDB7B',
+        backgroundColor: '#FFE351',
         height: 50,
         borderRadius: 30,
         justifyContent: 'center',
@@ -63,13 +63,16 @@ const styles = StyleSheet.create({
     },
     categoryPicker: {
         color: 'black',
+        textAlign: 'center',
+        justifyContent: 'center',
+        // backgroundColor: '#FFE351'
     },
 });
 
 class SignUp extends Component {
     static navigationOptions = {
         headerStyle: {
-            backgroundColor: '#0FDB7B',
+            backgroundColor: '#FFE351',
         },
         headerTintColor: '#fff',
     };
@@ -130,7 +133,7 @@ class SignUp extends Component {
                 enableResetScrollToCoords={false}>
                 <View style={styles.container}>
                     <View style={styles.welcome}>
-                        <Text style={{ fontSize: 30, color: 'white', fontWeight: 'bold' }}>Tạo tài khoản</Text>
+                        <Text style={{ fontSize: 30, color: '#fff', fontWeight: 'bold' }}>Tạo tài khoản</Text>
                     </View>
 
                     <View style={styles.inputData}>
@@ -138,7 +141,7 @@ class SignUp extends Component {
                             ref={ref => (this.signUpForm = ref)}
                         />
                         <View style={styles.containerPicker}>
-                            <Text style={{ fontSize: 16, color: '#333' }}>Chọn vị trí:</Text>
+                            <Text  style={{ fontSize: 16, color: '#333', fontWeight: 'bold'}}>Chọn ví trí chơi bóng của bạn:</Text>
                             <Picker
                                 onValueChange={(itemValue, itemIndex) => {
                                     this.setState({
@@ -148,7 +151,7 @@ class SignUp extends Component {
                                 selectedValue={position}
                                 style={styles.categoryPicker}
                             >
-                                <Picker.Item label="Chọn" value="0" />
+                                <Picker.Item label="Vui lòng chọn" value="0" />
                                 <Picker.Item label="Thủ môn" value="1" />
                                 <Picker.Item label="Hậu vệ" value="2" />
                                 <Picker.Item label="Tiền vệ" value="3" />

@@ -157,7 +157,7 @@ class FlatFlistItem extends Component {
             < View style={styles.container} >
                 {item.type_request === 1 ?
                     <View>
-                        <View style={{ flexDirection: 'row', flex: 5, }}>
+                        <View style={{ flexDirection: 'row', flex: 5, alignItems: 'center', justifyContent: 'center' }}>
                             <Text>{firstNameSender + lastNameSender}</Text>
                             <Text> xin gia nhập team</Text>
                         </View>
@@ -187,7 +187,7 @@ class FlatFlistItem extends Component {
                                 <Text>Team số {item.team_id}</Text>
                                 <Text> muốn thi đấu với team bạn</Text>
                             </View>
-                            <View>
+                            <View style = {{alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}}>
                                 <Text>Message: {item.message}</Text>
                             </View>
                             <View style={styles.leftPanel}>
@@ -216,12 +216,15 @@ class FlatFlistItem extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
+        alignContent: 'center',
         alignItems: 'center',
         marginLeft: 15,
         marginRight: 15,
         height: 50,
         borderBottomWidth: 1,
+        borderBottomColor: '#EAEAEE',
+        // marginVertical: 30
     },
     leftPanel: {
         flexDirection: 'row',
@@ -231,13 +234,14 @@ const styles = StyleSheet.create({
     },
     containerButton: {
         alignItems: 'center',
+        marginVertical: 30,
         width: '50%'
         // flex: 2,
     },
     button: {
-        width: '100%',
-        height: '80%',
-        backgroundColor: '#4CAF50',
+        width: '50%',
+        height: 25,
+        backgroundColor: '#0FA00F',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,

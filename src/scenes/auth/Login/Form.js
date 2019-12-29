@@ -108,25 +108,28 @@ const styles = StyleSheet.create({
     containerTextInput: {
         flexDirection: 'row',
         alignItems: 'center',
-        borderBottomColor: '#9F9999',
+        borderBottomColor: '#EAEAEE',
         borderBottomWidth: 1,
-        marginBottom: 20,
+        marginBottom: 10,
         justifyContent: 'center',
         paddingBottom: 10,
+        // marginBottom: -5
     },
     input: {
         width: '90%',
         marginLeft: 10,
         fontSize: 15,
+        paddingBottom: -10
     },
     iconStyle: {
         width: 25,
         height: 25,
         marginLeft: 10,
+        marginBottom: -10
     },
     button: {
         width: '100%',
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#0FA00F',
         height: 50,
         borderRadius: 40,
         alignItems: 'center',
