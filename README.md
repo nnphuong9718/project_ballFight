@@ -109,6 +109,7 @@ emulator-5554 offline   # Google emulator
 Hiện dòng tương tự như thế này thì bạn đã thành công `14ed2fcc device`
 
 ## 3. Run app
+Cài nodemodules bằng lệnh: `npm i `
 
 Gõ lệnh sau trên CMD để cài và chạy app `react-native run-android`
 
@@ -194,6 +195,7 @@ Bạn cũng sẽ cần cài đặt Công cụ dòng lệnh Xcode. Mở Xcode, sa
 
 # B. Chạy project
 
+Cài nodemodules bằng lệnh: `npm i`
 
 Chạy npx react-native run-ios trong thư mục dự án `project_ballFight` của bạn.
 
