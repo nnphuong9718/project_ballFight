@@ -173,6 +173,11 @@ Chúng tôi khuyên bạn nên cài đặt Node và Watchman bằng [Homebrew](h
 Nếu bạn đã cài đặt Node trên hệ thống của mình, hãy đảm bảo rằng đó là Node 8.3 hoặc mới hơn.
 
 [Watchman](https://facebook.github.io/watchman/) là một công cụ của Facebook để xem các thay đổi trong hệ thống tệp. Rất khuyến khích bạn cài đặt nó để có hiệu suất tốt hơn.
+
+## Sử dụng máy ảo của Android studio
+
+Vào android studio, chọn SDK manager, và khởi động một máy ảo lên.
+
 ## Xcode & CocoaPods
 
 Cách dễ nhất để cài đặt Xcode là thông qua Mac App Store . Cài đặt Xcode cũng sẽ cài đặt Trình mô phỏng iOS và tất cả các công cụ cần thiết để xây dựng ứng dụng iOS của bạn.
