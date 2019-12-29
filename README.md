@@ -115,7 +115,7 @@ Gõ lệnh sau trên CMD để cài và chạy app `react-native run-android`
 
 Nếu bạn chạy xong lệnh này mà hiện lỗi sau
 
-![](https://i.imgur.com/BEHa0gV.jpg)
+![](https://i.ibb.co/ThW3bWr/Screenshot-1577624040.png)
 
 Hiện lỗi đến đây thì bạn đang làm đúng hướng dẫn rồi đấy. Vậy bạn làm các bước tiếp dưới đây
 
@@ -235,7 +235,7 @@ Chạy npx react-native run-ios trong thư mục dự án `project_ballFight` c�
 
 Nếu chạy thành công thì sẽ ra kết quả dưới đây
 
-![](https://i.ibb.co/5YP8tgj/intro-app.png)
+![](https://i.ibb.co/ThW3bWr/Screenshot-1577624040.png)
 
 Nhấn ⌘R vào Trình mô phỏng iOS của bạn để tải lại ứng dụng và xem các thay đổi của bạn!
 
