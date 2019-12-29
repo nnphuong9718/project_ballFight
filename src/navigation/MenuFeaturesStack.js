@@ -7,6 +7,7 @@ import ListTeam from '../scenes/listTeam'
 import CreateTeam from '../scenes/createTeam'
 import Training from '../scenes/TeamInformation/Training'
 import FindOpponent from '../scenes/TeamInformation/FindOpponent'
+import TrainingSetting from '../scenes/TeamInformation/Training/SetDateTraining'
 
 
 const MenuFeaturesFeatures = createStackNavigator(
@@ -18,7 +19,8 @@ const MenuFeaturesFeatures = createStackNavigator(
         ListTeam,
         CreateTeam,
         Training,
-        FindOpponent
+        FindOpponent,
+        TrainingSetting
     },
     {
         initialRouteName: 'MenuFeatures',

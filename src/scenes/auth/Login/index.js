@@ -54,6 +54,7 @@ class Login extends Component {
             };
             axios.post(baseURL + '/account/loginService', data, config)
                 .then((response) => {
+                    console.log(response)
                     if (response.data === "Error") {
                         this.form.showError('Sai tên đăng nhập hoặc mật khẩu')
                         // props.onOpenNextScreen('');

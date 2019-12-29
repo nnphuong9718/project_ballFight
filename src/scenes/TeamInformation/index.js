@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Image,
     ImageBackground,
-    Alert
+    Alert,
+    TextInput
 }
     from 'react-native';
 import axios from 'axios';
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 20,
+
     },
 })
 
@@ -202,8 +203,12 @@ class TeamInformation extends Component {
     }
 
     _trainTeam = () => {
+        const { list_player } = this.state;
+        const arrayID = list_player.map(this.getIDTeam)
         this.props.navigation.navigate('Training', {
-            params: this.state.teamInfo
+            params: this.state.teamInfo,
+            arrayID: arrayID,
+
         })
     }
 
@@ -257,42 +262,46 @@ class TeamInformation extends Component {
                 console.log(error);
             })
     }
-    _setDate = (event, date) => {
-        const { list_player } = this.state;
-        console.log(list_player)
-        const arrayID = list_player.map(this.getIDTeam)
-        console.log(arrayID)
-        this.setState({
-            setDate: true,
-            mode: 'date',
-        })
-        const { teamInfo } = this.state;
-        console.log(date);
-        const date_training = (new Date(date)).getTime();
-        console.log(date_training)
-        if (date !== undefined) {
-            const data = {
-                arrayID: arrayID,
-                date_training: date_training,
-                team_id: teamInfo.id,
-                type: 2,
-            }
-            const config = {
-                'Content-Type': 'application/json',
-            }
-            // console.log(date)
-            axios.post(baseURL + '/team/training', data, config)
-                .then(response => {
-                    console.log(response)
-                    Alert.alert('Đặt lịch tập luyện thành công!')
-                })
-                .catch(error => {
-                    console.log(error);
-                    // this.props.navigation.navigate('TeamInformation');
-                })
-        }
+    // _setDate = (event, date) => {
 
-    }
+
+    //     this.setState({
+    //         setDate: true,
+    //         mode: 'date',
+    //     })
+    //     console.log(event)
+    //     this.props.navigation.navigate('Training', {
+    //         arrayID: arrayID,
+    //         date: date,
+    //     })
+    //     // const { teamInfo } = this.state;
+    //     // const date_training = (new Date(date)).getTime();
+    //     // if (date !== undefined) {
+    //     //     const data = {
+    //     //         arrayID: arrayID,
+    //     //         date_training: date_training,
+    //     //         team_id: teamInfo.id,
+    //     //         type: 2,
+    //     //     }
+    //     //     const config = {
+    //     //         'Content-Type': 'application/json',
+    //     //     }
+    //     //     // console.log(date)
+    //     //     axios.post(baseURL + '/team/training', data, config)
+    //     //         .then(response => {
+    //     //             console.log(response)
+    //     //             Alert.alert('Đặt lịch tập luyện thành công!')
+    //     //             this.setState({
+    //     //                 setDate: false
+    //     //             })
+    //     //         })
+    //     //         .catch(error => {
+    //     //             console.log(error);
+    //     //             // this.props.navigation.navigate('TeamInformation');
+    //     //         })
+    //     // }
+
+    // }
     getIDTeam = (list_player) => {
         return list_player.id;
     }
@@ -365,28 +374,9 @@ class TeamInformation extends Component {
                         </TouchableOpacity>
                     </View>
                     {
-                        isCaptain ?
-                            <View>
-                                <TouchableOpacity
-                                    style={styles.button}
-                                    onPress={this._setDate}>
-                                    <Text>Đặt lịch tập luyện</Text>
-                                </TouchableOpacity>
-                            </View> : <View></View>
-                    }
-                    {
-                        setDate ? <View>
-                            <DateTimePicker
-                                mode='date'
-                                value={new Date()}
-                                onChange={this._setDate} />
-                        </View> : <View></View>
-                    }
-                    {
                         setTime ? <View>
                             <DateTimePicker
                                 mode='time'
-
                                 value={new Date()}
                                 onChange={this.findCoordinates} />
                         </View> : <View></View>
